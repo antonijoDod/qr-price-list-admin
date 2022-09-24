@@ -11,11 +11,13 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 
 import { useDeleteBusiness } from "hooks/useBusiness";
+import { Button } from "@mui/material";
 
 const BusinessListResults = ({ businesses, ...rest }: { businesses: any }) => {
   const { deleteBusiness, isLoading, isError } = useDeleteBusiness();
@@ -47,7 +49,12 @@ const BusinessListResults = ({ businesses, ...rest }: { businesses: any }) => {
                     <TableCell>Ballyconnell, Co. Cavan</TableCell>
                     <TableCell>78575785</TableCell>
                     <TableCell>
-                      <IconButton aria-label="edit" color="info">
+                      <IconButton
+                        component={Link}
+                        to={`/businesses/${business.id}`}
+                        aria-label="edit"
+                        color="info"
+                      >
                         <EditIcon />
                       </IconButton>
                       <IconButton
@@ -67,15 +74,6 @@ const BusinessListResults = ({ businesses, ...rest }: { businesses: any }) => {
           </Table>
         </Paper>
       </Box>
-      {/*  <TablePagination
-        component="div"
-        count={customers.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      /> */}
     </Card>
   );
 };

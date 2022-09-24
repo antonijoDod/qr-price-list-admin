@@ -1,109 +1,79 @@
-import React, { useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetBusiness } from "hooks/useBusiness";
 import {
   Box,
   Container,
   Typography,
   Button,
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Snackbar,
-  Alert,
+  Grid,
+  Card,
+  CardHeader,
+  CardContent,
+  Divider,
 } from "@mui/material";
+import BusinessImage from "components/business/BusinessImage";
+import BusinessEdit from "components/business/BusinessEditForm";
 
-import { useGetBusinesses } from "hooks/useBusiness";
-import BusinessListResults from "components/business/Business-list-results";
-import BusinessForm from "components/business/BusinessForm";
+const BusinessNew = () => {
+  const { id } = useParams();
 
-const Business = () => {
-  const { businessesData, isLoading, isError } = useGetBusinesses();
+  const { businessData, isLoading, isError } = useGetBusiness(
+    typeof id === "string" ? parseInt(id) : 0
+  );
 
-  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
-  const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState<boolean>(false);
+  if (isLoading) return <>Loading</>;
 
-  /* Handle if form is successful submitted */
-  const handleSuccessAction = () => {
-    setIsAlertSuccessOpen(true);
-    setIsOpenDialog(false);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setIsAlertSuccessOpen(false);
-  };
-
-  if (isError) {
-    return <Box>Error is occurred</Box>;
-  }
+  if (isError) return <>Error is ocurred</>;
 
   return (
-    <>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container>
-          <Box
-            sx={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              m: -1,
-            }}
-          >
-            <Typography variant="h4" mb={3}>
-              Business info
-            </Typography>
-            <Button onClick={() => setIsOpenDialog(true)} variant="contained">
-              New business
-            </Button>
-          </Box>
-          <Box sx={{ mt: 3 }}>
-            {isLoading ? (
-              <>Loading</>
-            ) : (
-              <BusinessListResults businesses={businessesData} />
-            )}
-          </Box>
-        </Container>
-      </Box>
-      <Dialog
-        maxWidth="md"
-        open={isOpenDialog}
-        onClose={() => setIsOpenDialog(false)}
-      >
-        <DialogTitle>New business</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To add new business, please fill in all required fields.
-          </DialogContentText>
-          <BusinessForm successAction={() => handleSuccessAction()} />
-        </DialogContent>
-      </Dialog>
-      <Snackbar
-        anchorOrigin={{ horizontal: "center", vertical: "top" }}
-        open={isAlertSuccessOpen}
-        key={"new-business"}
-        autoHideDuration={5000}
-        onClose={handleClose}
-      >
-        <Alert severity="success" sx={{ width: "100%" }}>
-          Business is added
-        </Alert>
-      </Snackbar>
-    </>
+    <Box
+      component="main"
+      sx={{
+        flexGrow: 1,
+        py: 8,
+      }}
+    >
+      <Container>
+        <Box
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            m: -1,
+          }}
+        >
+          <Typography variant="h4" mb={3}>
+            Business details
+          </Typography>
+        </Box>
+        <Grid container spacing={3}>
+          <Grid item lg={4} md={6} xs={12}>
+            <BusinessImage
+              businessImage={
+                businessData.data.attributes.image.data
+                  ? businessData.data.attributes.image.data
+                  : null
+              }
+            />
+          </Grid>
+          <Grid item lg={8} md={6} xs={12}>
+            <Card>
+              <CardHeader
+                title="Business details"
+                subheader="The information can be edited"
+              />
+              <Divider />
+              <CardContent>
+                <BusinessEdit businessData={businessData} />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
-export default Business;
+export default BusinessNew;

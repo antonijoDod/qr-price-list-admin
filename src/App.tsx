@@ -11,9 +11,10 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import Dashboard from "./pages/dashboard";
-import Business from "./pages/business";
+import Businesses from "./pages/businesses";
 import QrBuilder from "./pages/qrBuilder";
 import PriceList from "./pages/price-list";
+import Business from "pages/business";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,8 @@ function App() {
               }
             >
               <Route path="/" element={<Dashboard />} />
-              <Route path="/business" element={<Business />} />
+              <Route path="/businesses" element={<Businesses />} />
+              <Route path="/businesses/:id" element={<Business />} />
               <Route path="/price-list" element={<PriceList />} />
               <Route path="/qr-builder" element={<QrBuilder />} />
             </Route>

@@ -24,7 +24,7 @@ const items = [
     title: "Dashboard",
   },
   {
-    href: "/business",
+    href: "/businesses",
     icon: <AddBusinessIcon fontSize="small" />,
     title: "Business",
   },

@@ -9,7 +9,7 @@ type TCreateBusiness = {
   phone: "number";
 };
 
-const BusinessForm = ({ successAction }: { successAction: () => void }) => {
+const BusinessNew = ({ successAction }: { successAction: () => void }) => {
   const { createBusiness, isLoading, isError, error } = useCreateBusiness();
 
   const { handleSubmit, control } = useForm<TCreateBusiness>();
@@ -75,27 +75,6 @@ const BusinessForm = ({ successAction }: { successAction: () => void }) => {
               rules={{ required: "Business sub title required" }}
             />
           </Grid>
-          {/* <Grid item md={6} xs={12}>
-          <Controller
-          name="business_location"
-            control={control}
-            defaultValue="d"
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <TextField
-                label="Business location"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                helperText={error ? error.message : null}
-                type="text"
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                />
-            )}
-            rules={{ required: "Business location required" }}
-          />
-        </Grid> */}
         </Grid>
         <Box mt={3}>
           <LoadingButton loading={isLoading} variant="contained" type="submit">
@@ -107,4 +86,4 @@ const BusinessForm = ({ successAction }: { successAction: () => void }) => {
   );
 };
 
-export default BusinessForm;
+export default BusinessNew;
