@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
-import { useSignUp } from "hooks/useSignUp";
+import { useSignUp } from "hooks/auth";
 
 import { Box, Button, Grid, TextField, Typography, Alert } from "@mui/material";
 import { LoadingButton } from "@mui/lab";

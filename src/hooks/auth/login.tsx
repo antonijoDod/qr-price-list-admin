@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginService } from "services/userServices";
-import { useAuthContext } from "./useAuthContext";
+import axios from "axios";
+import { useAuthContext } from "hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { strapiServer } from "api/strapi";
 
 type TForm = {
   identifier: "string";
@@ -34,6 +35,12 @@ type TCreateUserError = {
 export const useLogin = () => {
   const { dispatch } = useAuthContext();
   const navigate = useNavigate();
+
+  const loginService = async ({ identifier, password }: TForm) =>
+    await axios.post(`${strapiServer}/auth/local/`, {
+      identifier,
+      password,
+    });
 
   const {
     mutate: login,

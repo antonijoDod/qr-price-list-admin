@@ -12,13 +12,17 @@ import axios from "axios";
 import { useAuthContext } from "hooks/useAuthContext";
 
 import { strapiServer } from "api/strapi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const BusinessesImage = ({
+  businessId,
   businessImage,
   ...props
 }: {
+  businessId: number;
   businessImage: any;
 }) => {
+  const queryClient = useQueryClient();
   const { user } = useAuthContext();
   const [img, setImg] = useState();
 
@@ -28,19 +32,29 @@ const BusinessesImage = ({
     // @ts-ignore:next-line
     formData.append("files", img);
     formData.append("ref", "api::business.business");
-    formData.append("refId", "82");
+    // @ts-ignore:next-line
+    formData.append("refId", businessId);
     formData.append("field", "image");
-    const response = await axios.post(`${strapiServer}/upload`, formData, {
+    await mutate({ data: formData });
+  };
+
+  const postImage = async ({ data }: { data: any }) => {
+    const response = await axios.post(`${strapiServer}/upload`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${user?.jwt}`,
       },
     });
-    console.log(
-      "🚀 ~ file: BusinessImage.tsx ~ line 39 ~ handleFormSubmit ~ response",
-      response
-    );
+    return response.data;
   };
+
+  const { mutate, isLoading } = useMutation(postImage, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["business"]);
+    },
+  });
+
+  const deleteImage = () => {};
 
   return (
     <Card {...props}>
@@ -58,7 +72,7 @@ const BusinessesImage = ({
           image={
             businessImage.attributes.formats.small
               ? businessImage.attributes.formats.small.url
-              : businessImage.attributes.url
+              : businessImage.attributes.formats.thumbnail.url
           }
           alt="Business image"
         />
@@ -66,17 +80,29 @@ const BusinessesImage = ({
 
       <Divider />
       <CardActions>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="file"
-            name="files"
-            // @ts-ignore:next-line
-            onChange={(e) => setImg(e.target.files[0])}
-          />
-          <Button type="submit" color="primary" fullWidth variant="text">
-            Upload picture
+        {businessImage ? (
+          <Button
+            onClick={deleteImage}
+            type="submit"
+            color="primary"
+            fullWidth
+            variant="text"
+          >
+            Delete picture
           </Button>
-        </form>
+        ) : (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="file"
+              name="files"
+              // @ts-ignore:next-line
+              onChange={(e) => setImg(e.target.files[0])}
+            />
+            <Button type="submit" color="primary" fullWidth variant="text">
+              Upload picture
+            </Button>
+          </form>
+        )}
       </CardActions>
     </Card>
   );

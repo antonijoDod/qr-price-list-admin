@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
 import { useAuthContext } from "hooks/useAuthContext";
-import { useLogout } from "hooks/useLogout";
+import { useLogout } from "hooks/auth";
 
 const AccountPopover = ({
   anchorEl,

@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Box, TextField, Grid } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useCreateCategory } from "hooks/useCategory";
+import { useCreateCategory } from "hooks/categories";
 
 type TCreateCategory = {
   name: string;

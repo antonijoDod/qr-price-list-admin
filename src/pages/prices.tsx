@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import {
   Box,
-  Card,
-  CardHeader,
-  CardContent,
   Container,
-  Divider,
   Typography,
-  TextField,
-  Grid,
   Button,
   FormControl,
   InputLabel,
@@ -18,15 +12,13 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import List from "../components/price-list/List";
 
-import { useGetBusinesses, useGetBusiness } from "hooks/useBusiness";
+import { useGetBusinesses, useGetBusiness } from "hooks/businesses";
 import AddCategoryForm from "components/price-list/AddCategoryForm";
 
-const PriceList = () => {
+const Prices = () => {
   const [businessID, setBusinessID] = useState<number>();
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
 
@@ -111,4 +103,4 @@ const PriceList = () => {
   );
 };
 
-export default PriceList;
+export default Prices;

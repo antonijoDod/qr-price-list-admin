@@ -11,7 +11,7 @@ import {
   AccordionDetails,
   Typography,
 } from "@mui/material";
-import { useGetCategory } from "hooks/useCategory";
+import { useGetCategory } from "hooks/categories";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";

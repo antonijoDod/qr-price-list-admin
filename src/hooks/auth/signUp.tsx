@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { signUpService } from "services/userServices";
+import axios from "axios";
+import { strapiServer } from "api/strapi";
 import { useNavigate } from "react-router-dom";
 
 type TSignUpForm = {
@@ -33,6 +34,13 @@ type TCreateUserError = {
 
 export const useSignUp = () => {
   const navigate = useNavigate();
+
+  const signUpService = async ({ username, email, password }: TSignUpForm) =>
+    await axios.post(`${strapiServer}/auth/local/register`, {
+      username,
+      email,
+      password,
+    });
 
   const {
     mutate: signUp,

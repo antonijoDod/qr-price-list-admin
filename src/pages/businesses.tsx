@@ -12,7 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 
-import { useGetBusinesses } from "hooks/useBusiness";
+import { useGetBusinesses } from "hooks/businesses";
 import BusinessListResults from "components/business/Business-list-results";
 import BusinessNew from "components/business/Business-new";
 

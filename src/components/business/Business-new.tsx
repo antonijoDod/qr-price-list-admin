@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Box, TextField, Grid, Snackbar, Alert } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useCreateBusiness } from "hooks/useBusiness";
+import { useCreateBusiness } from "hooks/businesses";
 
 type TCreateBusiness = {
   name: "string";

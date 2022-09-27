@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 
-import { useDeleteBusiness } from "hooks/useBusiness";
+import { useDeleteBusiness } from "hooks/businesses";
 import { Button } from "@mui/material";
 
 const BusinessListResults = ({ businesses, ...rest }: { businesses: any }) => {

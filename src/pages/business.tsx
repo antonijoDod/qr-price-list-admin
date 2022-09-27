@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetBusiness } from "hooks/useBusiness";
+import { useGetBusiness } from "hooks/businesses";
 import {
   Box,
   Container,
@@ -15,7 +15,7 @@ import {
 import BusinessImage from "components/business/BusinessImage";
 import BusinessEdit from "components/business/BusinessEditForm";
 
-const BusinessNew = () => {
+const Business = () => {
   const { id } = useParams();
 
   const { businessData, isLoading, isError } = useGetBusiness(
@@ -51,6 +51,7 @@ const BusinessNew = () => {
         <Grid container spacing={3}>
           <Grid item lg={4} md={6} xs={12}>
             <BusinessImage
+              businessId={businessData.data.id}
               businessImage={
                 businessData.data.attributes.image.data
                   ? businessData.data.attributes.image.data
@@ -76,4 +77,4 @@ const BusinessNew = () => {
   );
 };
 
-export default BusinessNew;
+export default Business;

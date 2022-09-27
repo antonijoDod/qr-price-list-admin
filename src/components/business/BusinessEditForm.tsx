@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Box, TextField, Grid } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { useUpdateBusiness } from "hooks/business";
+import { useUpdateBusiness } from "hooks/businesses";
 
 type TInfoBusiness = {
   name: string;
