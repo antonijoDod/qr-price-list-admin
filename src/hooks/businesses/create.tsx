@@ -6,21 +6,24 @@ import { useAuthContext } from "hooks/useAuthContext";
 /* Create user business */
 
 type TCreateBusiness = {
-  name: "string";
-  phone: "number";
+  name: string;
+  short_name: string;
 };
 
 export const useCreateBusiness = () => {
   const { user } = useAuthContext();
   const queryClient = useQueryClient();
 
-  const createBusinessServices = async ({ name, phone }: TCreateBusiness) =>
+  const createBusinessServices = async ({
+    name,
+    short_name,
+  }: TCreateBusiness) =>
     await axios.post(
       `${strapiServer}/businesses`,
       {
         data: {
           name,
-          phone,
+          short_name,
         },
       },
       {

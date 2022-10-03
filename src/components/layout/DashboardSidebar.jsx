@@ -117,6 +117,7 @@ const DashboardSidebar = ({ open, onClose }) => {
     </>
   );
 
+  /* Desktop drawer */
   if (lgUp) {
     return (
       <Drawer
@@ -136,6 +137,7 @@ const DashboardSidebar = ({ open, onClose }) => {
     );
   }
 
+  /* Mobile drawer */
   return (
     <Drawer
       anchor="left"

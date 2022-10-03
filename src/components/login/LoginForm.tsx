@@ -47,6 +47,9 @@ const LoginForm = () => {
             fullWidth
             margin="normal"
             variant="outlined"
+            inputProps={{
+              id: "identifier",
+            }}
           />
         )}
         rules={{ required: "Email or username required" }}
@@ -66,6 +69,9 @@ const LoginForm = () => {
             fullWidth
             margin="normal"
             variant="outlined"
+            inputProps={{
+              id: "password",
+            }}
           />
         )}
         rules={{ required: "Password required" }}
@@ -73,7 +79,7 @@ const LoginForm = () => {
 
       <Box sx={{ py: 2 }}>
         <LoadingButton variant="contained" type="submit" loading={isLoading}>
-          Sign In Now
+          Sign In
         </LoadingButton>
       </Box>
       <Typography color="textSecondary" variant="body2">

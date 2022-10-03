@@ -10,13 +10,21 @@ export const useUpdateBusiness = () => {
   const putBusiness = async ({
     businessId,
     name,
+    short_name,
+    location,
+    phone,
+    description,
   }: {
     businessId: number;
     name: string;
+    short_name: string;
+    location: string;
+    phone: string;
+    description: string;
   }) => {
     const response = await axios.put(
       `${strapiServer}/businesses/${businessId}`,
-      { data: { name } },
+      { data: { name, short_name, location, phone, description } },
       {
         headers: {
           "Content-Type": "application/json",

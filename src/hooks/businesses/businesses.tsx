@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { strapiServer } from "api/strapi";
 import { useAuthContext } from "hooks/useAuthContext";
+import { TBusinesses } from "types/businesses";
 
 /* Get all user businesses */
 export const useGetBusinesses = () => {
@@ -22,6 +23,9 @@ export const useGetBusinesses = () => {
     isLoading,
     isError,
     error,
-  } = useQuery(["businesses"], getBusinesses);
+  }: UseQueryResult<TBusinesses, Error> = useQuery<TBusinesses, Error>(
+    ["businesses"],
+    getBusinesses
+  );
   return { businessesData, isLoading, isError, error };
 };

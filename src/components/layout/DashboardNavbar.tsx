@@ -1,13 +1,6 @@
 import React, { useState, useRef } from "react";
 import styled from "@emotion/styled";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-} from "@mui/material";
+import { AppBar, Avatar, Box, IconButton, Toolbar } from "@mui/material";
 import AccountPopover from "./Account-popover";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useAuthContext } from "hooks/useAuthContext";

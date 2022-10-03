@@ -8,11 +8,8 @@ import {
   Typography,
   CardMedia,
 } from "@mui/material";
-import axios from "axios";
-import { useAuthContext } from "hooks/useAuthContext";
-
-import { strapiServer } from "api/strapi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useUploadImage, useDeleteImage } from "hooks/images";
+import { TImage } from "types/businesses";
 
 const BusinessesImage = ({
   businessId,
@@ -20,11 +17,11 @@ const BusinessesImage = ({
   ...props
 }: {
   businessId: number;
-  businessImage: any;
+  businessImage: TImage;
 }) => {
-  const queryClient = useQueryClient();
-  const { user } = useAuthContext();
   const [img, setImg] = useState();
+  const { uploadImage, isLoading, isError, error } = useUploadImage();
+  const { deleteImage, isError: isErrorDeleteImage } = useDeleteImage();
 
   const handleFormSubmit = async (e: any) => {
     e.preventDefault();
@@ -35,26 +32,12 @@ const BusinessesImage = ({
     // @ts-ignore:next-line
     formData.append("refId", businessId);
     formData.append("field", "image");
-    await mutate({ data: formData });
+    await uploadImage({ data: formData });
   };
 
-  const postImage = async ({ data }: { data: any }) => {
-    const response = await axios.post(`${strapiServer}/upload`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${user?.jwt}`,
-      },
-    });
-    return response.data;
+  const handleDeleteImage = async () => {
+    await deleteImage({ id: businessImage.id });
   };
-
-  const { mutate, isLoading } = useMutation(postImage, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["business"]);
-    },
-  });
-
-  const deleteImage = () => {};
 
   return (
     <Card {...props}>
@@ -82,7 +65,7 @@ const BusinessesImage = ({
       <CardActions>
         {businessImage ? (
           <Button
-            onClick={deleteImage}
+            onClick={handleDeleteImage}
             type="submit"
             color="primary"
             fullWidth

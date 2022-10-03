@@ -5,16 +5,13 @@ import {
   ListItemText,
   IconButton,
   Box,
-  Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
 } from "@mui/material";
 import { useGetCategory } from "hooks/categories";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const ItemList = ({ items }: { items: any }) => {
@@ -29,7 +26,7 @@ const ItemList = ({ items }: { items: any }) => {
   );
 };
 
-const ListAccordion = ({ category }: { category: any }) => {
+const CategoryItem = ({ category }: { category: any }) => {
   const [categoryId, setCategoryId] = useState<number | null>();
   const { categoryData, isError, isLoading, status, fetchStatus } =
     useGetCategory(categoryId as number);
@@ -68,4 +65,4 @@ const ListAccordion = ({ category }: { category: any }) => {
   );
 };
 
-export default ListAccordion;
+export default CategoryItem;

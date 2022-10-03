@@ -46,6 +46,9 @@ const RegisterForm = () => {
             fullWidth
             margin="normal"
             variant="outlined"
+            inputProps={{
+              id: "username",
+            }}
           />
         )}
         rules={{ required: "Username is required" }}
@@ -65,6 +68,9 @@ const RegisterForm = () => {
             fullWidth
             margin="normal"
             variant="outlined"
+            inputProps={{
+              id: "email",
+            }}
           />
         )}
         rules={{ required: "Email is required" }}
@@ -84,6 +90,9 @@ const RegisterForm = () => {
             fullWidth
             margin="normal"
             variant="outlined"
+            inputProps={{
+              id: "password",
+            }}
           />
         )}
         rules={{ required: "Password required" }}

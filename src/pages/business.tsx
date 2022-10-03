@@ -5,7 +5,6 @@ import {
   Box,
   Container,
   Typography,
-  Button,
   Grid,
   Card,
   CardHeader,
@@ -13,7 +12,7 @@ import {
   Divider,
 } from "@mui/material";
 import BusinessImage from "components/business/BusinessImage";
-import BusinessEdit from "components/business/BusinessEditForm";
+import EditBusiness from "components/business/EditBusiness";
 
 const Business = () => {
   const { id } = useParams();
@@ -21,6 +20,8 @@ const Business = () => {
   const { businessData, isLoading, isError } = useGetBusiness(
     typeof id === "string" ? parseInt(id) : 0
   );
+
+  if (businessData === undefined) return <div>Data is undefined</div>;
 
   if (isLoading) return <>Loading</>;
 
@@ -51,11 +52,10 @@ const Business = () => {
         <Grid container spacing={3}>
           <Grid item lg={4} md={6} xs={12}>
             <BusinessImage
-              businessId={businessData.data.id}
+              businessId={businessData.id}
               businessImage={
-                businessData.data.attributes.image.data
-                  ? businessData.data.attributes.image.data
-                  : null
+                businessData.attributes.image.data &&
+                businessData.attributes.image.data
               }
             />
           </Grid>
@@ -67,7 +67,7 @@ const Business = () => {
               />
               <Divider />
               <CardContent>
-                <BusinessEdit businessData={businessData} />
+                <EditBusiness businessData={businessData} />
               </CardContent>
             </Card>
           </Grid>

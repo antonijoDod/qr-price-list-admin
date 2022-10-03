@@ -13,24 +13,25 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import List from "../components/price-list/List";
+import CategoriesList from "../components/price-list/CategoriesList";
 
-import { useGetBusinesses, useGetBusiness } from "hooks/businesses";
+import { useGetBusinesses } from "hooks/businesses";
 import AddCategoryForm from "components/price-list/AddCategoryForm";
 
 const Prices = () => {
-  const [businessID, setBusinessID] = useState<number>();
+  const [businessId, setBusinessId] = useState<number>();
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
 
   const { businessesData, isLoading, isError } = useGetBusinesses();
-  const { businessData, isLoading: isLoadingBusiness } = useGetBusiness(
-    businessID as number
-  );
 
   /* Handle if form is successful submitted */
   const handleSuccessAction = () => {
     setIsOpenDialog(false);
   };
+
+  if (isLoading) return <div>Loading</div>;
+
+  if (isError) return <div>Error occurred</div>;
 
   return (
     <Box
@@ -62,25 +63,21 @@ const Prices = () => {
             <InputLabel>Business name</InputLabel>
             <Select
               label="Age"
-              onChange={(e) => setBusinessID(e.target.value as number)}
+              onChange={(e) => setBusinessId(e.target.value as number)}
             >
               {businessesData?.data &&
-                businessesData.data.map((business: any) => (
+                businessesData.data.map((business) => (
                   <MenuItem key={business.id} value={business.id}>
-                    {business.name}
+                    {business.attributes.name}
                   </MenuItem>
                 ))}
             </Select>
           </FormControl>
         </Box>
-        {!isLoadingBusiness ? (
-          !isError ? (
-            <List categories={businessData?.data.attributes.categories} />
-          ) : (
-            "Error is occurred"
-          )
+        {businessId ? (
+          <CategoriesList businessId={businessId as number} />
         ) : (
-          "Loading"
+          "Select business"
         )}
       </Container>
       <Dialog
@@ -94,7 +91,7 @@ const Prices = () => {
             To add new category, please fill in all required fields.
           </DialogContentText>
           <AddCategoryForm
-            businessId={businessID as number}
+            businessId={businessId as number}
             successAction={() => handleSuccessAction()}
           />
         </DialogContent>

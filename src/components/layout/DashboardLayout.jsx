@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
@@ -16,7 +16,9 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
 }));
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const isDesktopScreen = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+
+  const [isSidebarOpen, setSidebarOpen] = useState(isDesktopScreen);
   return (
     <>
       <DashboardLayoutRoot>

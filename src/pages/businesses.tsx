@@ -13,12 +13,11 @@ import {
 } from "@mui/material";
 
 import { useGetBusinesses } from "hooks/businesses";
-import BusinessListResults from "components/business/Business-list-results";
-import BusinessNew from "components/business/Business-new";
+import BusinessList from "components/business/BusinessList";
+import AddNewBusiness from "components/business/AddNewBusiness";
 
 const Business = () => {
   const { businessesData, isLoading, isError } = useGetBusinesses();
-
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [isAlertSuccessOpen, setIsAlertSuccessOpen] = useState<boolean>(false);
 
@@ -73,7 +72,9 @@ const Business = () => {
             {isLoading ? (
               <>Loading</>
             ) : (
-              <BusinessListResults businesses={businessesData} />
+              businessesData !== undefined && (
+                <BusinessList businesses={businessesData} />
+              )
             )}
           </Box>
         </Container>
@@ -88,7 +89,7 @@ const Business = () => {
           <DialogContentText>
             To add new business, please fill in all required fields.
           </DialogContentText>
-          <BusinessNew successAction={() => handleSuccessAction()} />
+          <AddNewBusiness successAction={() => handleSuccessAction()} />
         </DialogContent>
       </Dialog>
       <Snackbar
